@@ -33,7 +33,18 @@ namespace farstone
                 cardList.Add(new Minion((int)deckBlueprint[i,0],(int)deckBlueprint[i,1],(int)deckBlueprint[i,2],(string)deckBlueprint[i,3]));
                 cardList.Add(new Minion((int)deckBlueprint[i,0],(int)deckBlueprint[i,1],(int)deckBlueprint[i,2],(string)deckBlueprint[i,3]));
             }
-            Deck playerDeck = new Deck(cardList);
+            Deck playerDeck;
+            Console.WriteLine("Would you like to create your own deck? [Y]es or [N]o?");            
+            string ans = Console.ReadLine().ToLower();
+            if(ans == "y")
+            {
+                playerDeck = new Deck(createDeck.MakingDeck());
+            }
+            else
+            {
+                playerDeck = new Deck(cardList);
+            }
+            
             Player newPlayer = new Player(playerDeck, inputName);
             newPlayer.deck.shuffle();
             newPlayer.deck.shuffle();
