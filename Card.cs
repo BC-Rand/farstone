@@ -10,7 +10,7 @@ namespace farstone
         public int atk;
         public int hp;
         public bool canAtk = false;
-        Minion(int atkVal, int hpVal ,int costVal , string nameVal){
+        public Minion(int atkVal, int hpVal ,int costVal , string nameVal){
         atk = atkVal;
         hp = hpVal;
         cost = costVal;
