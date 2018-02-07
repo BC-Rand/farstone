@@ -34,7 +34,7 @@ namespace farstone
             for (int i = 0; i < 15; i++)
             {
                 Console.WriteLine("What would you like to add to your deck?");
-                int c = Convert.ToInt32 (Console.ReadLine());
+                int c = GetInput.GetInt();
                 for (int z = 0; z < 2; z++)
                 {
                     cardList.Add(new Minion((int)deckBlueprint[c,0],(int)deckBlueprint[c,1],(int)deckBlueprint[c,2],(string)deckBlueprint[c,3]));
