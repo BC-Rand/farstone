@@ -48,14 +48,7 @@ namespace farstone
             Console.WriteLine($"+++++++++++++++ {current_player.name}'s Cards ++++++++++++++");
             for(int i = 0; i < 7; i++)
             {
-                if(current_player.field[i] == null)
-                {
-                    Console.WriteLine($"Slot {i}: Empty");
-                }
-                else
-                {
-                    Console.WriteLine($"Slot {i}: Name: {current_player.field[i].name} --- Attack: {current_player.field[i].atk} --- HP: {current_player.field[i].hp} --- Cost: {current_player.field[i].cost}");
-                }
+                Console.WriteLine($"Slot {i}: Name: {current_player.field[i].name} --- Attack: {current_player.field[i].atk} --- HP: {current_player.field[i].hp} --- Cost: {current_player.field[i].cost}");
             }
             Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
@@ -64,12 +57,17 @@ namespace farstone
         public static bool makeChoice(Player current_player)
         {
             Console.WriteLine($"Mana: {current_player.manaTotal}");            
-            Console.WriteLine("Do you want to [P]lay a creature, [A]ttack with a creatue or [E]nd your turn.");
+            Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creatue or [E]nd your turn.");
             string choice = Console.ReadLine().ToLower();
             if(choice != "p" || choice != "a" || choice != "e")
             {
                 Console.WriteLine("I guess you had an issue with the instructions");
                 Console.WriteLine("Enter 'P', 'A' or 'E' since that wasn't clear");
+            }
+            else if (choice == "p")
+            {
+                Console.WriteLine("These are you cards:");
+                for 
             }
 
 
@@ -85,7 +83,7 @@ namespace farstone
             int turn_mana = current_player.manaTotal;
             current_player.draw();
             showInfo(current_player, other_player);
-            while(makeChoice()){}
+            while(makeChoice(current_player)){}
 
 
             //sets up next player's turn
@@ -97,11 +95,13 @@ namespace farstone
         static void Main(string[] args)
         {
             //creates players
-            Player player1;
-            Player player2;
-            createPlayer1();
             Console.WriteLine($"Welcome {player1.name}, you are Player 1");
-            Console.WriteLine($"Welcome {player2.name}, you are Player 2");
+
+
+            Player player1 = createPlayer(name1);
+            Console.WriteLine($"Greetings {player1.name}, you are now playing as Player 1");
+            Player player2 = createPlayer(name2);
+            Console.WriteLine($"Greetings {player2.name}, you are now playing as Player 2");
 
             Player current_player = player1;
             Player other_player = player2;
