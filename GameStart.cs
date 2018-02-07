@@ -34,7 +34,12 @@ namespace farstone
                 cardList.Add(new Minion((int)deckBlueprint[i,0],(int)deckBlueprint[i,1],(int)deckBlueprint[i,2],(string)deckBlueprint[i,3]));
             }
             Deck playerDeck = new Deck(cardList);
-            return new Player(playerDeck, inputName);
+            Player newPlayer = new Player(playerDeck, inputName);
+            newPlayer.deck.shuffle();
+            newPlayer.draw();
+            newPlayer.draw();
+            newPlayer.draw();
+            return newPlayer;
         }
     }
     
