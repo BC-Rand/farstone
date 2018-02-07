@@ -4,9 +4,113 @@ namespace farstone
 {
     class Program
     {
+        public static void showInfo(Player current_player, Player other_player)
+        {
+            string info = "";
+            Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
+            Console.WriteLine($"============================ {other_player.name}'s stats ==========================");
+            Console.WriteLine($"Health: {other_player.health}...................Hand Size: {other_player.hand.Count}");
+            Console.WriteLine($"");
+            Console.WriteLine($"+++++++++++++++ {other_player.name}'s creatures ++++++++++++++");
+            for(int i = 0; i < 7; i++)
+            {
+                if(other_player.field[i] == null)
+                {
+                    Console.WriteLine($"Slot {i}: Empty");
+                }
+                else
+                {
+                    Console.WriteLine($"Slot {i}: Name: {other_player.field[i].name} --- Attack: {other_player.field[i].atk} --- HP: {other_player.field[i].hp} --- Cost: {other_player.field[i].cost}");
+                }
+            }
+            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine($"========================================================================");
+            Console.WriteLine($"");
+
+            Console.WriteLine($"============================ {current_player.name}'s stats ==========================");
+            Console.WriteLine($"Health: {current_player.health}...................Hand Size: {current_player.hand.Count}");
+            Console.WriteLine($"Mana: {current_player.manaTotal}");
+            Console.WriteLine($"");
+            Console.WriteLine($"+++++++++++++++ {current_player.name}'s creatures ++++++++++++++");
+            for(int i = 0; i < 7; i++)
+            {
+                if(current_player.field[i] == null)
+                {
+                    Console.WriteLine($"Slot {i}: Empty");
+                }
+                else
+                {
+                    Console.WriteLine($"Slot {i}: Name: {current_player.field[i].name} --- Attack: {current_player.field[i].atk} --- HP: {current_player.field[i].hp} --- Cost: {current_player.field[i].cost}");
+                }
+            }
+            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine($"");
+            Console.WriteLine($"+++++++++++++++ {current_player.name}'s Cards ++++++++++++++");
+            for(int i = 0; i < 7; i++)
+            {
+                if(current_player.field[i] == null)
+                {
+                    Console.WriteLine($"Slot {i}: Empty");
+                }
+                else
+                {
+                    Console.WriteLine($"Slot {i}: Name: {current_player.field[i].name} --- Attack: {current_player.field[i].atk} --- HP: {current_player.field[i].hp} --- Cost: {current_player.field[i].cost}");
+                }
+            }
+            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
+        }
+
+        public static bool makeChoice(Player current_player)
+        {
+            Console.WriteLine($"Mana: {current_player.manaTotal}");            
+            Console.WriteLine("Do you want to [P]lay a creature, [A]ttack with a creatue or [E]nd your turn.");
+            string choice = Console.ReadLine().ToLower();
+            if(choice != "p" || choice != "a" || choice != "e")
+            {
+                Console.WriteLine("I guess you had an issue with the instructions");
+                Console.WriteLine("Enter 'P', 'A' or 'E' since that wasn't clear");
+            }
+
+
+            return true;
+        }
+
+        public static void gameLoop(Player current_player, Player other_player)
+        {
+            if (current_player.manaTotal < 10)
+            {
+                current_player.manaTotal++;
+            }
+            int turn_mana = current_player.manaTotal;
+            current_player.draw();
+            showInfo(current_player, other_player);
+            while(makeChoice()){}
+
+
+            //sets up next player's turn
+            Player temp = current_player;
+            current_player = other_player;
+            other_player = temp;
+        }
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //creates players
+            Player player1;
+            Player player2;
+            createPlayers();
+            Console.WriteLine($"Welcome {player1.name}, you are Player 1");
+            Console.WriteLine($"Welcome {player2.name}, you are Player 2");
+
+            Player current_player = player1;
+            Player other_player = player2;
+            
+            //Game Loop
+            while(player1.health > 0 && player2.health > 0)
+            {
+                gameLoop(current_player, other_player);
+            }
         }
     }
 }

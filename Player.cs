@@ -8,8 +8,8 @@ namespace farstone
         public Deck deck;
         public List<Card> hand;
         public Card[] field = new Card[7];
-        int health = 30;
-        int manaTotal = 0;
+        public int health = 30;
+        public int manaTotal = 0;
         public string name;
         public Player(Deck inputDeck, string inputName)
         {
