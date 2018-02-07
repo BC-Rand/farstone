@@ -186,7 +186,7 @@ namespace farstone
                     char atk = ToChar(curr.atk);
                     char hp = ToChar(curr.hp);
                     char cost = ToChar(curr.cost);
-                    Render.DrawCard("12345678", curr.name, "1234", ToChar(i), cost, atk, hp, ConsoleColor.White);
+                    Render.DrawCard(curr.name, "12345678", "----", ToChar(i), cost, atk, hp, ConsoleColor.White);
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace farstone
                     char atk = ToChar(curr.atk);
                     char hp = ToChar(curr.hp);
                     char cost = ToChar(curr.cost);
-                    Render.DrawCard("12345678", curr.name, "1234", ToChar(i), cost, atk, hp, ConsoleColor.White);
+                    Render.DrawCard(curr.name, "12345678", "----", ToChar(i), cost, atk, hp, ConsoleColor.White);
                 }
                 else
                 {
@@ -216,7 +216,7 @@ namespace farstone
                     char atk = ToChar(curr.atk);
                     char hp = ToChar(curr.hp);
                     char cost = ToChar(curr.cost);
-                    Render.DrawCard("12345678", curr.name, "1234", ToChar(i), cost, atk, hp, ConsoleColor.White);
+                    Render.DrawCard(curr.name, "12345678", "----", ToChar(i), cost, atk, hp, ConsoleColor.White);
                 }
                 else
                 {
