@@ -1,6 +1,6 @@
 using System;
 
-namespace farstone
+namespace example_for_brandon
 {
     static class Render
     {
@@ -123,18 +123,25 @@ namespace farstone
             }
         }
 
-        public static void DrawCard(string name, char upperLeft, char upperRight, char lowerLeft, char lowerRight)
+        public static void DrawCard(string name, string desc, string pic, char upperLeft, char upperRight, char lowerLeft, char lowerRight, ConsoleColor color)
         {
-            int x = CardsDrawn * (CardWidth + 2);
+            int x = CardsDrawn * (CardWidth + 2) + 1;
             int y = CurrentRow * (CardHeight + 1);
 
             //DrawBackgroundRect(x, y, CardWidth, CardHeight, ConsoleColor.Red);
-            DrawOutlinedRect(x, y, CardWidth, CardHeight, ConsoleColor.White);
-            SetCharAt(x + 2, y + 1, upperLeft, ConsoleColor.White);
-            SetCharAt(x + CardWidth - 2, y + 1, upperRight, ConsoleColor.White);
-            SetCharAt(x + 2, y + CardHeight - 2, lowerLeft, ConsoleColor.White);            
-            SetCharAt(x + CardWidth - 2, y + CardHeight - 2, lowerRight, ConsoleColor.White);
-            DrawString(x + 4, y + CardHeight - 4, name, ConsoleColor.White);      
+            DrawOutlinedRect(x, y, CardWidth, CardHeight, color);
+            SetCharAt(x + 2, y + 1, upperLeft, color);
+            SetCharAt(x + CardWidth - 3, y + 1, upperRight, color);
+            SetCharAt(x + 2, y + CardHeight - 2, lowerLeft, color);            
+            SetCharAt(x + CardWidth - 3, y + CardHeight - 2, lowerRight, color);
+            DrawString(x + 3, y + CardHeight - 3, name, color);
+            DrawString(x + 3, y + CardHeight - 4, desc, color);
+
+            if (pic != "")
+            {
+                DrawOutlinedRect(x + 4, y + 2, 6, 3, color);
+                DrawString(x + 5, y + 3, pic, color);
+            }
 
             CardsDrawn++;
 
@@ -143,6 +150,11 @@ namespace farstone
                 CardsDrawn = 0;
                 CurrentRow++;
             }
+        }
+
+        public static void DrawEmptyCard()
+        {
+            DrawCard("", "", "", ' ', ' ', ' ', ' ', ConsoleColor.Red);
         }
     }
 }
