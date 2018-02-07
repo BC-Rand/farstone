@@ -99,7 +99,7 @@ namespace farstone
             //creates players
             Player player1;
             Player player2;
-            createPlayers();
+            createPlayer1();
             Console.WriteLine($"Welcome {player1.name}, you are Player 1");
             Console.WriteLine($"Welcome {player2.name}, you are Player 2");
 
