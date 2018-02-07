@@ -103,7 +103,7 @@ namespace farstone
 
         public static bool makeChoice(Player current_player, Player other_player, int turn_mana)
         {
-            Console.WriteLine($"Mana: {current_player.manaTotal}");            
+            Console.WriteLine($"Mana: {turn_mana}");            
             Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creatue or [E]nd your turn.");
             string choice = Console.ReadLine().ToLower();
             if(choice != "p" && choice != "a" && choice != "e")
@@ -117,7 +117,7 @@ namespace farstone
             }
             else if (choice == "a")
             {
-                Console.WriteLine("you attack! woopah! the enemy is dead. nice job.");
+                AttackClass.Attack(current_player, other_player);
             }
             else if (choice == "e")
             {
@@ -140,7 +140,13 @@ namespace farstone
             showInfo(current_player, other_player);
             while(makeChoice(current_player, other_player, turn_mana)){}
 
-
+            for(int i = 0; i < 7; i++)
+            {
+                if(current_player.field[i] != null)
+                {
+                    current_player.field[i].canAtk = true;
+                }
+            }
             //sets up next player's turn
             Player temp = current_player;
             current_player = other_player;
