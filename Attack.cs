@@ -14,13 +14,13 @@ namespace farstone
             else
             {
                 // showField is unbuilt
-                Program.showField(current_player, other_player);
+                Render.DrawGame(current_player, other_player);
                 Console.WriteLine("Choose the Minion you'd like to attack with");
                 int attackIdx = GetAttackerIndex(current_player);
-                Console.WriteLine("Choose 1-7 to attack a minion or 8 to attack the enemy player");
+                Console.WriteLine("Choose 0-6 to attack a minion or 7 to attack the enemy player");
                 int receiverIdx = GetReceiverIndex(other_player);
                 current_player.field[attackIdx].canAtk = false;
-                if (receiverIdx == 8)
+                if (receiverIdx == 7)
                 {
                     other_player.health -= current_player.field[attackIdx].atk;
                 }
@@ -36,14 +36,14 @@ namespace farstone
                     {
                         current_player.field[attackIdx] = null;
                     }
-                    Program.showField(current_player, other_player);
+                    Render.DrawGame(current_player, other_player);
                 }
             }
         }
         public static int GetAttackerIndex(Player player)
         {
             int attackerIdx = GetInput.GetInt();
-            if (attackerIdx >= 0 && attackerIdx <= 7 && player.field[attackerIdx] != null)
+            if (attackerIdx >= 0 && attackerIdx <= 6 && player.field[attackerIdx] != null)
             {
                 if (player.field[attackerIdx].canAtk == true)
                 {

@@ -64,57 +64,64 @@ namespace farstone
         public static void showInfo(Player current_player, Player other_player)
         {
             Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
+            Render.DrawGame(current_player, other_player);
             showStats(current_player, other_player);
             Console.WriteLine($"");
-            showField(current_player, other_player);
-            Console.WriteLine($"");
-            showHand(current_player);
+            // showField(current_player, other_player);
+            // Console.WriteLine($"");
+            // showHand(current_player);
             Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
         }
 
         public static void playCard(Player current_player, Player other_player)
         {
-            showField(current_player, other_player);
-            Console.WriteLine("These are you cards:");
-            showHand(current_player);
+            Render.DrawGame(current_player, other_player);
             Console.WriteLine($"You have {turn_mana} Mana to play.");
             Console.WriteLine("Please input the slot # of the card you want to play:");
             string card_string = Console.ReadLine();
             if(int.TryParse(card_string, out int card_num))
             {
-                if(current_player.hand[card_num].cost <= turn_mana)
+                if (card_num < current_player.hand.Count && card_num >= 0)
                 {
-                    Console.WriteLine($"Select the slot in the field you wish to play {current_player.hand[card_num].name} in:");
-                    int slot = GetInput.GetInt();
-                    if(current_player.field[slot] == null)
+                    if(current_player.hand[card_num].cost <= turn_mana)
                     {
-                        turn_mana -= current_player.hand[card_num].cost;
-                        current_player.field[slot] = current_player.hand[card_num] as Minion;
-                        current_player.hand.RemoveAt(card_num);
-                        showField(current_player, other_player);
+                        Console.WriteLine($"Select the slot in the field you wish to play {current_player.hand[card_num].name} in:");
+                        int slot = GetInput.GetInt();
+                        if(current_player.field[slot] == null)
+                        {
+                            turn_mana -= current_player.hand[card_num].cost;
+                            current_player.field[slot] = current_player.hand[card_num] as Minion;
+                            current_player.hand.RemoveAt(card_num);
+                            showInfo(current_player, other_player);
+                        }
+                        else
+                        {
+                            Console.WriteLine("There's already a creature in that slot.");
+                        }
+
                     }
                     else
                     {
-                        Console.WriteLine("There's already a creature in that slot.");
+                        Console.WriteLine("Nice try, but that creatures costs more than you got. peasent.");
                     }
-
                 }
                 else
                 {
-                    Console.WriteLine("Nice try, but that creatures costs more than you got. peasent.");
+                    Console.WriteLine("That number is outside the bounds of your hand");
                 }
+                
 
             }
             else
             {
-                Console.WriteLine("Iditot, that wasn't a number");
+                Console.WriteLine("That wasn't a number");
             }
         }
 
         public static bool makeChoice(Player current_player, Player other_player)
         {
             Console.WriteLine($"Mana: {turn_mana}");            
-            Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creatue or [E]nd your turn.");
+            Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creature or [E]nd your turn.");
             string choice = Console.ReadLine().ToLower();
             if(choice != "p" && choice != "a" && choice != "e")
             {
@@ -147,7 +154,7 @@ namespace farstone
             }
             turn_mana = current_player.manaTotal;
             current_player.draw();
-            showInfo(current_player, other_player);
+            // showInfo(current_player, other_player);
             while(makeChoice(current_player, other_player)){}
 
             for(int i = 0; i < 7; i++)
@@ -168,7 +175,6 @@ namespace farstone
             //creates players
             Console.WriteLine($"Welcome to game time, you are Player");
 
-
             Player player1 = GameStart.makePlayer();
             Console.WriteLine($"Greetings {player1.name}, you are now playing as Player 1");
             Player player2 = GameStart.makePlayer();
@@ -179,8 +185,13 @@ namespace farstone
             Player tempPlayer;
             
             //Game Loop
+
+
             while(player1.health > 0 && player2.health > 0)
             {
+                Render.CreateGrid(114, 32);
+
+                showInfo(current_player, other_player);
                 gameLoop(current_player, other_player);
                 tempPlayer = current_player;
                 current_player = other_player;
