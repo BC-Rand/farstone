@@ -4,6 +4,20 @@ namespace farstone
 {
     class Program
     {
+        public static void showHand(Player current_player)
+        {
+            Console.WriteLine($"+++++++++++++++ {current_player.name}'s Hand ++++++++++++++");
+            for(int i = 0; i < current_player.hand.Count; i++)
+            {
+                if(current_player.hand[i] is Minion){
+                    Minion card = current_player.hand[i] as Minion;
+                    Console.WriteLine($"Card {i}: Name: {card.name} --- Attack: {card.atk} --- HP: {card.hp} --- Cost: {card.cost}");
+                }
+                //add spell display here as else if
+            }
+            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        }
+
         public static void showInfo(Player current_player, Player other_player)
         {
             string info = "";
@@ -45,21 +59,16 @@ namespace farstone
             }
             Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Console.WriteLine($"");
-            Console.WriteLine($"+++++++++++++++ {current_player.name}'s Cards ++++++++++++++");
-            for(int i = 0; i < 7; i++)
-            {
-                Console.WriteLine($"Slot {i}: Name: {current_player.field[i].name} --- Attack: {current_player.field[i].atk} --- HP: {current_player.field[i].hp} --- Cost: {current_player.field[i].cost}");
-            }
-            Console.WriteLine($"++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            showHand(current_player);
             Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
         }
 
-        public static bool makeChoice(Player current_player)
+        public static bool makeChoice(Player current_player, int turn_mana)
         {
             Console.WriteLine($"Mana: {current_player.manaTotal}");            
             Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creatue or [E]nd your turn.");
             string choice = Console.ReadLine().ToLower();
-            if(choice != "p" || choice != "a" || choice != "e")
+            if(choice != "p" && choice != "a" && choice != "e")
             {
                 Console.WriteLine("I guess you had an issue with the instructions");
                 Console.WriteLine("Enter 'P', 'A' or 'E' since that wasn't clear");
@@ -67,9 +76,25 @@ namespace farstone
             else if (choice == "p")
             {
                 Console.WriteLine("These are you cards:");
-                for 
-            }
+                showHand(current_player);
+                Console.WriteLine($"You have {turn_mana} Mana to play.");
+                Console.WriteLine("Please input the slot # of the card you want to play:");
+                string card_string = Console.ReadLine();
+                if(int.TryParse(card_string, out int card_num))
+                {
+                    Console.WriteLine("you played a charazard");
+                }
+                else
+                {
+                    Console.WriteLine("Iditot, that wasn't a number");
+                    Console.WriteLine($"You have {turn_mana} Mana to play.");
+                    Console.WriteLine("Please input the slot # of the card you want to play:");
+                    card_string = Console.ReadLine();
+                }
 
+
+            }
+            
 
             return true;
         }
@@ -83,7 +108,7 @@ namespace farstone
             int turn_mana = current_player.manaTotal;
             current_player.draw();
             showInfo(current_player, other_player);
-            while(makeChoice(current_player)){}
+            while(makeChoice(current_player, turn_mana)){}
 
 
             //sets up next player's turn
@@ -95,12 +120,12 @@ namespace farstone
         static void Main(string[] args)
         {
             //creates players
-            Console.WriteLine($"Welcome {player1.name}, you are Player 1");
+            Console.WriteLine($"Welcome to game time, you are Player");
 
 
-            Player player1 = createPlayer(name1);
+            Player player1 = GameStart.makePlayer();
             Console.WriteLine($"Greetings {player1.name}, you are now playing as Player 1");
-            Player player2 = createPlayer(name2);
+            Player player2 = GameStart.makePlayer();
             Console.WriteLine($"Greetings {player2.name}, you are now playing as Player 2");
 
             Player current_player = player1;

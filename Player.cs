@@ -6,7 +6,7 @@ namespace farstone
     public class Player
     {
         public Deck deck;
-        public List<Card> hand;
+        public List<Card> hand = new List<Card>();
         public Minion[] field = new Minion[7];
         public int health = 30;
         public int manaTotal = 0;
@@ -20,7 +20,7 @@ namespace farstone
         {
             if (deck.cards.Count > 0)
             {
-                Card drawCard = deck.cards[0];
+                Card drawCard = deck.cards[0] as Card;
                 deck.cards.RemoveAt(0);
                 hand.Add(drawCard);
             }
