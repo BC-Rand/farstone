@@ -19,6 +19,7 @@ namespace farstone
                 int attackIdx = GetAttackerIndex(current_player);
                 Console.WriteLine("Choose 1-7 to attack a minion or 8 to attack the enemy player");
                 int receiverIdx = GetReceiverIndex(other_player);
+                current_player.field[attackIdx].canAtk = false;
                 if (receiverIdx == 8)
                 {
                     other_player.health -= current_player.field[attackIdx].atk;
@@ -26,9 +27,14 @@ namespace farstone
                 else
                 {
                     other_player.field[receiverIdx].hp -= current_player.field[attackIdx].atk;
+                    current_player.field[attackIdx].hp -= other_player.field[receiverIdx].atk;
                     if (other_player.field[receiverIdx].hp <= 0)
                     {
                         other_player.field[receiverIdx] = null;
+                    }
+                    if (current_player.field[attackIdx].hp <= 0)
+                    {
+                        current_player.field[attackIdx] = null;
                     }
                     Program.showField(current_player, other_player);
                 }
@@ -79,7 +85,7 @@ namespace farstone
             Boolean validity = false;
             for (int i=0; i<7; i++)
             {
-                if (current_player.field[i] is Minion && current_player.field[i].canAtk == true)
+                if (current_player.field[i] != null && current_player.field[i].canAtk == true)
                 {
                     validity = true;
                     break;
