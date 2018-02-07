@@ -36,6 +36,8 @@ namespace farstone
             Deck playerDeck = new Deck(cardList);
             Player newPlayer = new Player(playerDeck, inputName);
             newPlayer.deck.shuffle();
+            newPlayer.deck.shuffle();
+            newPlayer.deck.shuffle();
             newPlayer.draw();
             newPlayer.draw();
             newPlayer.draw();
