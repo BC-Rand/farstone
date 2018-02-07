@@ -7,7 +7,7 @@ namespace farstone
     {
         public Deck deck;
         public List<Card> hand;
-        public Card[] field = new Card[7];
+        public Minion[] field = new Minion[7];
         public int health = 30;
         public int manaTotal = 0;
         public string name;
