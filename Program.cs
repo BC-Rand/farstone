@@ -4,6 +4,7 @@ namespace farstone
 {
     class Program
     {
+        public static int turn_mana;
         public static void showHand(Player current_player)
         {
             Console.WriteLine($"+++++++++++++++ {current_player.name}'s Hand ++++++++++++++");
@@ -71,7 +72,7 @@ namespace farstone
             Console.WriteLine($"*************************** {current_player.name}'s Turn ******************************");
         }
 
-        public static void playCard(Player current_player, Player other_player, int turn_mana)
+        public static void playCard(Player current_player, Player other_player)
         {
             showField(current_player, other_player);
             Console.WriteLine("These are you cards:");
@@ -85,9 +86,18 @@ namespace farstone
                 {
                     Console.WriteLine($"Select the slot in the field you wish to play {current_player.hand[card_num].name} in:");
                     int slot = GetInput.GetInt();
-                    current_player.field[slot] = current_player.hand[card_num] as Minion;
-                    current_player.hand.RemoveAt(card_num);
-            showField(current_player, other_player);
+                    if(current_player.field[slot] == null)
+                    {
+                        turn_mana -= current_player.hand[card_num].cost;
+                        current_player.field[slot] = current_player.hand[card_num] as Minion;
+                        current_player.hand.RemoveAt(card_num);
+                        showField(current_player, other_player);
+                    }
+                    else
+                    {
+                        Console.WriteLine("There's already a creature in that slot.");
+                    }
+
                 }
                 else
                 {
@@ -101,7 +111,7 @@ namespace farstone
             }
         }
 
-        public static bool makeChoice(Player current_player, Player other_player, int turn_mana)
+        public static bool makeChoice(Player current_player, Player other_player)
         {
             Console.WriteLine($"Mana: {turn_mana}");            
             Console.WriteLine("Do you want to [P]lay a card, [A]ttack with a creatue or [E]nd your turn.");
@@ -113,7 +123,7 @@ namespace farstone
             }
             else if (choice == "p")
             {
-                playCard(current_player, other_player, turn_mana);
+                playCard(current_player, other_player);
             }
             else if (choice == "a")
             {
@@ -135,10 +145,10 @@ namespace farstone
             {
                 current_player.manaTotal++;
             }
-            int turn_mana = current_player.manaTotal;
+            turn_mana = current_player.manaTotal;
             current_player.draw();
             showInfo(current_player, other_player);
-            while(makeChoice(current_player, other_player, turn_mana)){}
+            while(makeChoice(current_player, other_player)){}
 
             for(int i = 0; i < 7; i++)
             {
@@ -176,6 +186,25 @@ namespace farstone
                 current_player = other_player;
                 other_player = tempPlayer;
             }
+            Player loser;
+            Player winner;
+            if(player1.health <= 0)
+            {
+                loser = player1;
+                winner = player2;
+            }
+            else 
+            {
+                loser = player2;                
+                winner = player1;                
+            }
+
+            Console.WriteLine($"{loser.name} Loses!");            
+            Console.ReadLine();
+            for(int i = 0; i < 99; i++)
+            {
+                Console.WriteLine($"{winner.name} Wins!");
+            }          
         }
     }
 }

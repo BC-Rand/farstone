@@ -18,7 +18,7 @@ namespace farstone
         }
         public void draw()
         {
-            if (deck.cards.Count > 0)
+            if (deck.cards.Count > 0 && hand.Count < 7)
             {
                 Card drawCard = deck.cards[0] as Card;
                 deck.cards.RemoveAt(0);
