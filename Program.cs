@@ -154,7 +154,7 @@ namespace farstone
             }
             turn_mana = current_player.manaTotal;
             current_player.draw();
-            // showInfo(current_player, other_player);
+            showInfo(current_player, other_player);
             while(makeChoice(current_player, other_player)){}
 
             for(int i = 0; i < 7; i++)
@@ -191,7 +191,7 @@ namespace farstone
             {
                 Render.CreateGrid(114, 32);
 
-                showInfo(current_player, other_player);
+                // showInfo(current_player, other_player);
                 gameLoop(current_player, other_player);
                 tempPlayer = current_player;
                 current_player = other_player;
@@ -216,6 +216,52 @@ namespace farstone
             {
                 Console.WriteLine($"{winner.name} Wins!");
             }          
+            Console.ReadLine();
+            {
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++                  ++++            ++++");
+            Console.WriteLine("++++                  ++++            ++++");
+            Console.WriteLine("++++    ++++++++++++  ++++            ++++");
+            Console.WriteLine("++++    ++++++++++++  ++++            ++++");
+            Console.WriteLine("++++            ++++  ++++            ++++");
+            Console.WriteLine("++++            ++++  ++++            ++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("                                          ");
+            Console.WriteLine("++++++++++++++++++++  ++++            ++++");
+            Console.WriteLine("++++++++++++++++++++   ++++          ++++ ");
+            Console.WriteLine("++++            ++++    ++++        ++++  ");
+            Console.WriteLine("++++            ++++     ++++      ++++   ");
+            Console.WriteLine("++++++++++++++++++++      ++++    ++++    ");
+            Console.WriteLine("++++++++++++++++++++       ++++  ++++     ");
+            Console.WriteLine("++++            ++++        ++++++++      ");
+            Console.WriteLine("++++            ++++         ++++++       ");
+            Console.WriteLine("++++            ++++          ++++        ");
+            Console.WriteLine("++++            ++++           ++         ");
+            Console.WriteLine("                                          ");
+            Console.WriteLine("++++            ++++  ++++++++++++++++++++");
+            Console.WriteLine("++++            ++++  ++++++++++++++++++++");
+            Console.WriteLine("++++++        ++++++  ++++                ");
+            Console.WriteLine("++++++++    ++++++++  ++++                ");
+            Console.WriteLine("++++  ++++++++  ++++  ++++++++++++++++++++");
+            Console.WriteLine("++++   ++++++   ++++  ++++++++++++++++++++");
+            Console.WriteLine("++++            ++++  ++++                ");
+            Console.WriteLine("++++            ++++  ++++                ");
+            Console.WriteLine("++++            ++++  ++++++++++++++++++++");
+            Console.WriteLine("++++            ++++  ++++++++++++++++++++");
+            Console.WriteLine("                                          ");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++                  ++++            ++++");
+            Console.WriteLine("++++                  ++++            ++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++++++++++++++++++  ++++++++++++++++++++");
+            Console.WriteLine("++++                  ++++      ++++      ");
+            Console.WriteLine("++++                  ++++        ++++    ");
+            Console.WriteLine("++++++++++++++++++++  ++++          ++++  ");
+            Console.WriteLine("++++++++++++++++++++  ++++            ++++");
+        }
         }
     }
 }

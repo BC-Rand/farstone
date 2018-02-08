@@ -66,11 +66,11 @@ namespace farstone
         public static int GetReceiverIndex(Player player)
         {
             int receiverIdx = GetInput.GetInt();
-            if (receiverIdx == 8)
+            if (receiverIdx == 7)
             {
                 return receiverIdx;
             }
-            else if (receiverIdx >= 0 && receiverIdx <= 7 && player.field[receiverIdx] != null)
+            else if (receiverIdx >= 0 && receiverIdx <= 6 && player.field[receiverIdx] != null)
             {
                 return receiverIdx;
             }
